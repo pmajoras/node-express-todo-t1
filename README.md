@@ -1,2 +1,10 @@
-# node-express-todo-t1
-Um pequeno tutorial para criação de uma API REST usando Node-Js e ExpressJs
+# Sample App
+A Sample Node.js Rest API and a client app made with AngularJs
+
+## Node.js REST API 
+
+
+## React Client (FLUX)
+
+ 
+Made by Paulo Gabriel Poffal
