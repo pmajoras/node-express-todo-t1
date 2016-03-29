@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var historySchema = Schema({
-  changedBy: { type: Schema.Types.ObjectId, ref: 'User' },
   date: { type: Date, default: Date.now },
   taskList: { type: Schema.Types.ObjectId, ref: 'TaskList' }
 });

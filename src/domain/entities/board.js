@@ -7,6 +7,5 @@ var Schema = mongoose.Schema;
 module.exports = mongoose.model('Board', new Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
-  owner: { type: Schema.Types.ObjectId, ref: 'User' },
   taskLists: [{ type: Schema.Types.ObjectId, ref: 'TaskList' }]
 }));
