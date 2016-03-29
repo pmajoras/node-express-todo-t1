@@ -20,6 +20,18 @@ class TodoController extends BaseController {
       });
   }
 
+  getBoardsById(req, res, next) {
+
+    this.boardRepository.findById(req.params.id)
+      .then((board) => {
+        let status = board != null && board != undefined ? null : 404;
+        res.setJsonResponse(board, status);
+        next();
+      }, (err) => {
+        next(err);
+      });
+  }
+
   createBoard(req, res, next) {
 
     this.boardRepository.createBoard(req.body.name, req.body.description)
@@ -33,6 +45,7 @@ class TodoController extends BaseController {
 
 var routeFactory = new RouteFactory("/todo/")
   .get("boards", "getBoards")
+  .get("boards/:id", "getBoards")
   .post("boards", "createBoard");
 
 module.exports = { "Controller": TodoController, "routeFactory": routeFactory };
