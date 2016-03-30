@@ -7,6 +7,5 @@ var Schema = mongoose.Schema;
 module.exports = mongoose.model('TaskList', new Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
-  board: { type: Schema.Types.ObjectId, ref: 'Board' },
   tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 }));

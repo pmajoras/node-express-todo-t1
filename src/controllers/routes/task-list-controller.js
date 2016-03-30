@@ -11,9 +11,9 @@ class TaskListController extends BaseController {
 
   getTaskLists(req, res, next) {
 
-    this.taskListRepository.findAll({ board: req.params.boardId })
-      .then((boards) => {
-        res.setJsonResponse(boards);
+    this.taskListRepository.findAll()
+      .then((taskLists) => {
+        res.setJsonResponse(taskLists);
         next();
       }, (err) => {
         next(err);
@@ -22,7 +22,7 @@ class TaskListController extends BaseController {
 
   getTaskListsById(req, res, next) {
 
-    this.taskListRepository.findOne({ board: req.params.boardId, _id: req.params.id })
+    this.taskListRepository.findById(req.params.id)
       .then((taskList) => {
         let status = taskList != null && taskList != undefined ? null : 404;
         res.setJsonResponse(taskList, status);
@@ -34,18 +34,31 @@ class TaskListController extends BaseController {
 
   createTaskList(req, res, next) {
 
-    this.taskListRepository.createTaskList(req.body.name, req.body.description, req.params.boardId)
-      .then((newBoard) => {
-        res.setJsonResponse(newBoard);
+    this.taskListRepository.createTaskList(req.body.name, req.body.description)
+      .then((newTaskList) => {
+        res.setJsonResponse(newTaskList);
       }, (err) => {
         next(err);
       });
   }
 }
 
-var routeFactory = new RouteFactory("/todo/boards/:boardId/taskLists")
-  .get("", "getTaskLists")
-  .get("/:id", "getTaskListsById")
-  .post("", "createTaskList");
+var setup = function(app) {
+  let baseUrl = "/todo/taskLists";
+  app.get(baseUrl, function(req, res, next) {
+    let taskListController = new TaskListController();
+    taskListController.getTaskLists(req, res, next);
+  });
 
-module.exports = { "Controller": TaskListController, "routeFactory": routeFactory };
+  app.get(baseUrl + "/:id", function(req, res, next) {
+    let taskListController = new TaskListController();
+    taskListController.getTaskListsById(req, res, next);
+  });
+
+  app.post(baseUrl, function(req, res, next) {
+    let taskListController = new TaskListController();
+    taskListController.createTaskList(req, res, next);
+  });
+};
+
+module.exports = setup;

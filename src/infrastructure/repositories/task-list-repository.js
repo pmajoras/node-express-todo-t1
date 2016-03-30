@@ -12,14 +12,14 @@ class TaskListRepository extends BaseRepository {
    * @param{String} taskListName - The task list name
    * @param{String} boardDescription - The board description    * 
    */
-  createTaskList(taskListName, taskListDescription, boardId) {
+  createTaskList(taskListName, taskListDescription) {
     if (!taskListName || taskListName.length === 0) {
       return Q.reject(SpecError("O nome é obrigatório."));
     }
 
     var deferred = Q.defer();
 
-    this.save({ name: taskListName, description: taskListDescription, board: boardId })
+    this.save({ name: taskListName, description: taskListDescription })
       .then((newTaskList) => {
         deferred.resolve(newTaskList);
       }, (err) => {
