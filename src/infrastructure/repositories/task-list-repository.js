@@ -3,30 +3,31 @@ var BaseRepository = require('../base-repository');
 var SpecError = require('../../app-errors').createSpecificationError;
 var Q = require('q');
 
-class BoardRepository extends BaseRepository {
+class TaskListRepository extends BaseRepository {
   constructor() {
-    super("board");
+    super("tasklist");
   }
 
   /**
-   * @param{String} boardName - The board name
+   * @param{String} taskListName - The task list name
    * @param{String} boardDescription - The board description    * 
    */
-  createBoard(boardName, boardDescription) {
-    if (!boardName || boardName.length === 0) {
+  createTaskList(taskListName, taskListDescription, boardId) {
+    if (!taskListName || taskListName.length === 0) {
       return Q.reject(SpecError("O nome é obrigatório."));
     }
+
     var deferred = Q.defer();
 
-    this.save({ name: boardname, description: boardDescription })
-      .then((newBoard) => {
-        deferred.resolve(newBoard);
+    this.save({ name: taskListName, description: taskListDescription, board: boardId })
+      .then((newTaskList) => {
+        deferred.resolve(newTaskList);
       }, (err) => {
         deferred.resolve(err);
       });
-      
+
     return deferred.promise;
   }
 }
 
-module.exports = BoardRepository;
+module.exports = TaskListRepository;

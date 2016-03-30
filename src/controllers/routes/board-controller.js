@@ -3,7 +3,7 @@ var RouteFactory = require('../route-factory');
 var BaseController = require('../base-controller');
 var BoardRepository = require('../../infrastructure/repositories/board-repository');
 
-class TodoController extends BaseController {
+class BoardController extends BaseController {
   constructor() {
     super();
     this.boardRepository = new BoardRepository();
@@ -43,9 +43,9 @@ class TodoController extends BaseController {
   }
 }
 
-var routeFactory = new RouteFactory("/todo/")
-  .get("boards", "getBoards")
-  .get("boards/:id", "getBoards")
-  .post("boards", "createBoard");
+var routeFactory = new RouteFactory("/todo/boards")
+  .get("", "getBoards")
+  .get("/:id", "getBoardsById")
+  .post("", "createBoard");
 
-module.exports = { "Controller": TodoController, "routeFactory": routeFactory };
+module.exports = { "Controller": BoardController, "routeFactory": routeFactory };
