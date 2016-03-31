@@ -41,6 +41,14 @@ class TaskListController extends BaseController {
         next(err);
       });
   }
+
+  updateTaskList(req, res, next) {
+    next();
+  }
+
+  deleteTaskList(req, res, next) {
+    next();
+  }
 }
 
 var setup = function(app) {
@@ -58,6 +66,16 @@ var setup = function(app) {
   app.post(baseUrl, function(req, res, next) {
     let taskListController = new TaskListController();
     taskListController.createTaskList(req, res, next);
+  });
+
+  app.put(baseUrl + "/:id", function(req, res, next) {
+    let taskListController = new TaskListController();
+    taskListController.updateTaskList(req, res, next);
+  });
+
+  app.delete(baseUrl + "/:id", function(req, res, next) {
+    let taskListController = new TaskListController();
+    taskListController.deleteTaskList(req, res, next);
   });
 };
 

@@ -14,15 +14,54 @@ class TaskController extends BaseController {
     res.setJsonResponse({ message: 'hooray! welcome to our Tãsks!' });
     next();
   }
-  /**
-   * Insert a new task
-   */
-  insertTask() {
-    console.log("Passei para o próximo");
+
+  getTaskById(req, res, next) {
+    res.setJsonResponse({ message: 'hooray! welcome to our Tãsks!' });
+    next();
+  }
+
+  createTask(req, res, next) {
+    res.setJsonResponse({ message: 'hooray! welcome to our Tãsks!' });
+    next();
+  }
+
+  updateTask(req, res, next) {
+    res.setJsonResponse({ message: 'hooray! welcome to our Tãsks!' });
+    next();
+  }
+
+  deleteTask(req, res, next) {
+    next();
   }
 }
 
-var routeFactory = new RouteFactory("/tasks")
-  .get("", "getTasks");
+var setup = function(app) {
+  let baseUrl = "/todo/taskLists/:id/tasks";
 
-module.exports = { "Controller": TaskController, "routeFactory": routeFactory };
+  app.get(baseUrl, function(req, res, next) {
+    let taskController = new TaskController();
+    taskController.getTasks(req, res, next);
+  });
+
+  app.get(baseUrl + "/:id", function(req, res, next) {
+    let taskController = new TaskController();
+    taskController.getTaskById(req, res, next);
+  });
+
+  app.post(baseUrl, function(req, res, next) {
+    let taskController = new TaskController();
+    taskController.createTask(req, res, next);
+  });
+
+  app.put(baseUrl + "/:id", function(req, res, next) {
+    let taskController = new TaskController();
+    taskController.updateTask(req, res, next);
+  });
+
+  app.delete(baseUrl + "/:id", function(req, res, next) {
+    let taskController = new TaskController();
+    taskController.deleteTask(req, res, next);
+  });
+};
+
+module.exports = setup;
