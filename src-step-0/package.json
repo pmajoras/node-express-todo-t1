@@ -1,0 +1,11 @@
+{
+  "name": "tutorial-step-0",
+  "version": "1.0.0",
+  "description": "Cwi Tutorial Step 0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paulo Gabriel Poffal",
+  "license": "MIT"
+}
