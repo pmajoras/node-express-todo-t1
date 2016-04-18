@@ -1,40 +1,39 @@
 var express = require('express');
 var fakeDatabase = require('../fake-data/fake-database');
 
-module.exports = function(apiApp) {
+module.exports = function (apiApp) {
 
-  apiApp.get("/", function(req, res, next) {
-    res.json("Bem vindo a minha API REST feita em NodeJS");
+  apiApp.get("/", function (req, res, next) {
+    res.setJsonResponse("Bem vindo a minha API REST feita em NodeJS");
     next();
   });
 
-  apiApp.get("/tasks", function(req, res, next) {
+  apiApp.get("/tasks", function (req, res, next) {
 
     fakeDatabase.get("tasks", (err, tasks) => {
-      console.log("err", err);
-      console.log("tasks", tasks);
-      if (!err) {
+      
+      if (err) {
         next(err);
       }
       else {
-        res.json("testee");
+        res.setJsonResponse(tasks);
         next();
       }
     });
   });
 
-  apiApp.post("/tasks", function(req, res, next) {
+  apiApp.post("/tasks", function (req, res, next) {
     if (typeof req.body.name !== 'string') {
       next("O nome é obrigatório.");
       return;
     }
 
     fakeDatabase.save("tasks", req.body, (err, newTask) => {
-      if (!err) {
+      if (err) {
         next(err);
       }
       else {
-        res.json(newTask);
+        res.setJsonResponse(newTask);
         next();
       }
     });

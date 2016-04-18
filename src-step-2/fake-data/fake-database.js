@@ -24,7 +24,6 @@ module.exports = {
     cb(null, data);
   },
   get: function(collectionName, cb) {
-    console.log("collectionName", collectionName);
     if (typeof collectionName !== 'string') {
       cb("O parâmetro collectionName é obrigatório.", null);
       return;
